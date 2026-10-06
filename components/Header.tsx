@@ -54,7 +54,7 @@ export default function Header() {
       <div className="border-b border-ink/10">
         <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 md:px-8">
           <button
-            className="-ml-1 p-1 md:hidden"
+            className="-ml-1 p-1 lg:hidden"
             onClick={() => setOpen((o) => !o)}
             aria-label="Abrir menú"
           >
@@ -65,7 +65,7 @@ export default function Header() {
           <Link href="/" aria-label="Altamar, inicio">
             <Logo />
           </Link>
-          <nav className="hidden gap-8 text-[13px] uppercase tracking-wider md:flex">
+          <nav className="hidden gap-8 text-[13px] uppercase tracking-wider lg:flex">
             {nav.map((n) => (
               <Link key={n.href} href={n.href} className="hover:text-terra">
                 {n.label}
@@ -74,14 +74,14 @@ export default function Header() {
           </nav>
           <div className="flex items-center gap-4 text-sm">
             {user ? (
-              <div className="hidden items-center gap-3 md:flex">
+              <div className="hidden items-center gap-3 lg:flex">
                 <span className="text-ink/70">Hola, {user.firstName}</span>
                 <button onClick={logout} className="text-xs uppercase tracking-wider text-ink/50 hover:text-terra">
                   Salir
                 </button>
               </div>
             ) : (
-              <Link href="/login" className="hidden text-xs uppercase tracking-wider hover:text-terra md:inline">
+              <Link href="/login" className="hidden whitespace-nowrap text-xs uppercase tracking-wider hover:text-terra lg:inline">
                 Iniciar sesión
               </Link>
             )}
@@ -100,7 +100,7 @@ export default function Header() {
           </div>
         </div>
         {open && (
-          <nav className="border-t border-ink/10 px-4 pb-4 md:hidden">
+          <nav className="border-t border-ink/10 px-4 pb-4 lg:hidden">
             {nav.map((n) => (
               <Link key={n.href} href={n.href} className="block py-3 text-sm uppercase tracking-wider">
                 {n.label}

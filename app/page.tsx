@@ -34,7 +34,7 @@ export default function HomePage() {
       </section>
 
       <section className="relative mt-14 h-[520px] w-full overflow-hidden">
-        <img src={brandAssets.linen} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={brandAssets.linen} alt="" className="absolute inset-0 h-full w-full object-cover object-[center_20%]" />
         <div className="absolute inset-0 bg-gradient-to-l from-ink/70 via-ink/25 to-transparent" />
         <div className="relative mx-auto flex h-full max-w-7xl items-center justify-end px-4 md:px-8">
           <div className="max-w-md text-right text-white">
