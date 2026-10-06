@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+body {
+  @apply bg-sand text-ink antialiased;
+}
+
+h1,
+h2,
+h3 {
+  @apply font-display;
+}
+
+.btn-primary {
+  @apply inline-block bg-ink px-8 py-3 text-[11px] font-semibold uppercase tracking-widest2 text-white transition hover:bg-terra;
+}
+
+.btn-outline-light {
+  @apply inline-block border border-white px-8 py-3 text-[11px] font-semibold uppercase tracking-widest2 text-white transition hover:bg-white hover:text-ink;
+}
+
+.eyebrow {
+  @apply text-[11px] font-medium uppercase tracking-widest2 text-terra;
+}
+
+.demo-note {
+  @apply border border-dashed border-sea/40 bg-sea-light/40 p-4 text-xs text-ink/80;
+}
