@@ -53,6 +53,7 @@ export async function submitToFormHandler(r: Registration, origin: string): Prom
     cache: "no-store"
   });
   const location = res.headers.get("location") || "";
+  console.info("[registro] respuesta del Form Handler", { status: res.status, location });
   const failed = res.status >= 400 || (res.status >= 300 && location.includes("error"));
   if (failed) throw new Error(`Form Handler ${res.status} ${location}: ${await res.text().catch(() => "")}`);
   // Evidencia del alta (RGPD) en los logs del servidor hasta que existan campos en Lead para guardarla.
