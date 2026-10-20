@@ -21,6 +21,7 @@ Clave que viaja en cada salto: el **email** (Contact Point Email) es la clave co
 ## Piezas en Salesforce
 
 1. **Envío server-side sin OAuth**: el Form Handler ofrece en *Code Snippet → Server-side* una URL pública de envío (`https://<sitio>.my.site.com/lp/cms/form/submit/v1/<FORM_ID>`). `/api/registro` hace un POST de formulario (`application/x-www-form-urlencoded`) a esa URL, que va en `MC_FORM_HANDLER_URL`. No hace falta External Client App.
+   El endpoint sí valida `Origin` y `Referer` contra la **CORS allowlist** (Setup → CORS): hay que añadir el dominio de la web (preview y producción). `/api/registro` envía ambas cabeceras con el dominio desde el que se usó el formulario.
 2. **Failure Page URL** distinta de la de éxito (p. ej. `/registro?error=1`): el handler responde con una redirección y `/api/registro` la usa para saber si el envío falló.
 3. **Form Handler** (Marketing → Form Handlers) con estos campos, que son los que envía `lib/mcNext.ts` (`toFormHandlerFields`):
    `first_name`, `last_name`, `email`, `phone`, `company` (siempre "Particular", Lead lo exige), `status` ("Open - Not Contacted" o `MC_LEAD_STATUS`), `marketing_consent` (checkbox `Marketing_Consent__c` en Lead).

@@ -41,10 +41,12 @@ export function toFormHandlerFields(r: Registration): Record<string, string> {
   };
 }
 
-export async function submitToFormHandler(r: Registration): Promise<void> {
+/** `origin` es el dominio de la web (p. ej. https://altamar-demo.vercel.app); debe estar en la CORS allowlist de la org. */
+export async function submitToFormHandler(r: Registration, origin: string): Promise<void> {
   const res = await fetch(process.env.MC_FORM_HANDLER_URL as string, {
     method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    // El endpoint de envío valida Origin y Referer contra la CORS allowlist (403/404 si no coinciden).
+    headers: { "Content-Type": "application/x-www-form-urlencoded", Origin: origin, Referer: `${origin}/registro` },
     body: new URLSearchParams(toFormHandlerFields(r)),
     // El handler responde con una redirección a la Success o Failure Page URL; no se sigue.
     redirect: "manual",

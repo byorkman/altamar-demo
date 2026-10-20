@@ -46,7 +46,9 @@ export async function POST(req: Request) {
   }
 
   try {
-    await submitToFormHandler(reg);
+    const host = req.headers.get("x-forwarded-host") || req.headers.get("host");
+    const origin = req.headers.get("origin") || (host ? `https://${host}` : process.env.NEXT_PUBLIC_SITE_URL || "");
+    await submitToFormHandler(reg, origin);
   } catch (err) {
     console.error("[registro] Error enviando al Form Handler", err);
     return NextResponse.json({ ok: false, error: "No hemos podido completar el registro. Inténtalo de nuevo." }, { status: 502 });
