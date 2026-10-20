@@ -95,7 +95,13 @@ export function isConfirmationConfigured(): boolean {
 export async function submitConfirmation(c: Confirmation, origin: string): Promise<void> {
   await postToFormHandler(
     process.env.MC_CONFIRM_FORM_HANDLER_URL as string,
-    { email: c.email, lead_id: c.leadId },
+    {
+      email: c.email,
+      lead_id: c.leadId,
+      // Obligatorios en el Form Handler (data source Lead). El Flow de confirmación no escribe el Lead, solo los lee.
+      last_name: "-",
+      status: process.env.MC_LEAD_STATUS || "Open - Not Contacted"
+    },
     origin,
     "/registro/confirmado"
   );
