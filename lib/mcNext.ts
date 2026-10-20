@@ -65,6 +65,8 @@ export function toFormHandlerFields(r: Registration): Record<string, string> {
     phone: r.phone ?? "",
     // Lead exige Company; en B2C se usa un valor fijo.
     company: "Particular",
+    // Status es obligatorio en el Form Handler; valor estándar del picklist de Lead.
+    status: process.env.MC_LEAD_STATUS || "Open - Not Contacted",
     marketing_consent: r.marketingConsent ? "true" : "false",
     privacy_accepted: r.privacyAccepted ? "true" : "false",
     consent_source: r.source,
