@@ -63,6 +63,8 @@ export function toFormHandlerFields(r: Registration): Record<string, string> {
     last_name: r.lastName,
     email: r.email,
     phone: r.phone ?? "",
+    // Lead exige Company; en B2C se usa un valor fijo.
+    company: "Particular",
     marketing_consent: r.marketingConsent ? "true" : "false",
     privacy_accepted: r.privacyAccepted ? "true" : "false",
     consent_source: r.source,
@@ -79,8 +81,9 @@ export async function submitToFormHandler(r: Registration, retry = true): Promis
     headers: {
       Authorization: `Bearer ${token.accessToken}`,
       "Content-Type": "application/json",
-      // El Form Handler valida Origin contra la CORS allowlist de la org.
-      Origin: process.env.NEXT_PUBLIC_SITE_URL || ""
+      // El Form Handler exige Origin y Referer, y ambos deben estar en la CORS allowlist de la org.
+      Origin: process.env.NEXT_PUBLIC_SITE_URL || "",
+      Referer: `${process.env.NEXT_PUBLIC_SITE_URL || ""}/registro`
     },
     body: JSON.stringify(toFormHandlerFields(r)),
     cache: "no-store"
