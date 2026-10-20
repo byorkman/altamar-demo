@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { isConfigured, submitToFormHandler, type Registration } from "@/lib/mcNext";
+import { isConfigured, requestOrigin, submitToFormHandler, type Registration } from "@/lib/mcNext";
 
 export const runtime = "nodejs";
 
@@ -46,9 +46,7 @@ export async function POST(req: Request) {
   }
 
   try {
-    const host = req.headers.get("x-forwarded-host") || req.headers.get("host");
-    const origin = req.headers.get("origin") || (host ? `https://${host}` : process.env.NEXT_PUBLIC_SITE_URL || "");
-    await submitToFormHandler(reg, origin);
+    await submitToFormHandler(reg, requestOrigin(req));
   } catch (err) {
     console.error("[registro] Error enviando al Form Handler", err);
     return NextResponse.json({ ok: false, error: "No hemos podido completar el registro. Inténtalo de nuevo." }, { status: 502 });
