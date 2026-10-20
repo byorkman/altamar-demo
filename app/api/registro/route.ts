@@ -41,7 +41,7 @@ export async function POST(req: Request) {
   if (Object.keys(errors).length) return NextResponse.json({ ok: false, errors }, { status: 422 });
 
   if (!isConfigured()) {
-    console.error("[registro] Marketing Cloud Next no está configurado (variables SF_* / MC_FORM_HANDLER_URL).");
+    console.error("[registro] Marketing Cloud Next no está configurado (falta MC_FORM_HANDLER_URL).");
     return NextResponse.json({ ok: false, error: "El registro no está disponible ahora mismo." }, { status: 503 });
   }
 

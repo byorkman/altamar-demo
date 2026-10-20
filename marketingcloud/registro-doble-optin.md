@@ -7,8 +7,7 @@ La página `/registro` crea la cuenta del cliente y, si marca la casilla de comu
 ```mermaid
 flowchart LR
   A[/registro<br/>navegador/] -- JSON sin credenciales --> B[/api/registro<br/>Next.js server/]
-  B -- OAuth Client Credentials --> C[External Client App]
-  B -- POST campos + evidencia --> D[Form Handler<br/>MC Next]
+  B -- POST de formulario --> D[Form Handler<br/>MC Next]
   D -- dispara --> E[Flow de registro]
   E -- crea/actualiza --> F[Lead + Contact Point Email]
   E -- si marketing_consent --> G[Email DOI transaccional]
@@ -21,8 +20,8 @@ Clave que viaja en cada salto: el **email** (Contact Point Email) es la clave co
 
 ## Piezas en Salesforce
 
-1. **External Client App** con OAuth, *Client Credentials Flow* habilitado y un usuario de integración como *Run As* con permisos mínimos (solo lo que necesita el Form Handler). Client ID y secret van a `SF_CLIENT_ID` / `SF_CLIENT_SECRET` en Vercel.
-2. **CORS allowlist** con el origen del sitio (`NEXT_PUBLIC_SITE_URL`). El handler de Next.js envía las cabeceras `Origin` y `Referer` con ese dominio; el Form Handler rechaza con 403/404 si no están en la allowlist.
+1. **Envío server-side sin OAuth**: el Form Handler ofrece en *Code Snippet → Server-side* una URL pública de envío (`https://<sitio>.my.site.com/lp/cms/form/submit/v1/<FORM_ID>`). `/api/registro` hace un POST de formulario (`application/x-www-form-urlencoded`) a esa URL, que va en `MC_FORM_HANDLER_URL`. No hace falta External Client App.
+2. **Failure Page URL** distinta de la de éxito (p. ej. `/registro?error=1`): el handler responde con una redirección y `/api/registro` la usa para saber si el envío falló.
 3. **Form Handler** (Marketing → Form Handlers) con estos campos, que son los que envía `lib/mcNext.ts` (`toFormHandlerFields`):
    `first_name`, `last_name`, `email`, `phone`, `company` (siempre "Particular", Lead lo exige), `status` ("Open - Not Contacted" o `MC_LEAD_STATUS`), `marketing_consent` (checkbox `Marketing_Consent__c` en Lead).
    La evidencia del alta (fecha, origen, IP, user agent) queda de momento en los logs del servidor; si se crean campos en Lead para guardarla, se añaden en `toFormHandlerFields`.
@@ -40,7 +39,7 @@ Clave que viaja en cada salto: el **email** (Contact Point Email) es la clave co
 
 ## Por qué así
 
-- **Server-side**: Salesforce recomienda no llamar al Form Handler desde el navegador; así el token y el secret no salen del servidor.
+- **Server-side**: la web valida y filtra bots antes de enviar, y el envío no depende de JavaScript en el navegador. La web ya tiene su propio tracking de Data 360, así que no se pierde nada respecto al método client-side.
 - **Opt In solo tras el clic**: marcar Opt In al enviar el formulario no es doble opt-in. Hasta el clic el contacto no tiene consentimiento y no entra en envíos comerciales.
 - **Evidencia**: fecha, origen, IP y user agent del alta, más la fecha del clic, sirven de prueba ante una reclamación RGPD.
 - **Data 360**: MC Next guarda el consentimiento en el modelo de Data 360 (Communication Subscription Consent), así que segmentos y activaciones lo respetan sin integraciones extra.
