@@ -67,12 +67,7 @@ export function toFormHandlerFields(r: Registration): Record<string, string> {
     company: "Particular",
     // Status es obligatorio en el Form Handler; valor estándar del picklist de Lead.
     status: process.env.MC_LEAD_STATUS || "Open - Not Contacted",
-    marketing_consent: r.marketingConsent ? "true" : "false",
-    privacy_accepted: r.privacyAccepted ? "true" : "false",
-    consent_source: r.source,
-    consent_captured_at: r.submittedAt,
-    consent_ip: r.ip ?? "",
-    consent_user_agent: r.userAgent ?? ""
+    marketing_consent: r.marketingConsent ? "true" : "false"
   };
 }
 
@@ -95,4 +90,14 @@ export async function submitToFormHandler(r: Registration, retry = true): Promis
     return submitToFormHandler(r, false);
   }
   if (!res.ok) throw new Error(`Form Handler ${res.status}: ${await res.text()}`);
+  // Evidencia del alta (RGPD) en los logs del servidor hasta que existan campos en Lead para guardarla.
+  console.info("[registro] consentimiento", {
+    email: r.email,
+    marketingConsent: r.marketingConsent,
+    privacyAccepted: r.privacyAccepted,
+    source: r.source,
+    submittedAt: r.submittedAt,
+    ip: r.ip,
+    userAgent: r.userAgent
+  });
 }
