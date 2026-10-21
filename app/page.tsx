@@ -2,6 +2,7 @@ import Link from "next/link";
 import HeroBanner from "@/components/HeroBanner";
 import ProductRow from "@/components/ProductRow";
 import ForYou from "@/components/ForYou";
+import RegistroCTA from "@/components/RegistroCTA";
 import { byTag } from "@/data/products";
 import { brandAssets } from "@/lib/brandAssets";
 
@@ -16,6 +17,8 @@ export default function HomePage() {
   return (
     <>
       <HeroBanner />
+
+      <RegistroCTA />
 
       <ForYou />
 
