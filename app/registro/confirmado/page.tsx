@@ -11,7 +11,8 @@ export default function ConfirmadoPage({ searchParams }: { searchParams: { e?: s
   return (
     <div className="mx-auto max-w-md px-4 py-16 text-center">
       <p className="eyebrow">Club Altamar</p>
-      <Confirmar email={searchParams.e ?? ""} leadId={searchParams.l ?? ""} />
+      {/* El merge field no codifica el email: un "+" (alias de Gmail) llega como espacio. */}
+      <Confirmar email={(searchParams.e ?? "").replace(/ /g, "+")} leadId={searchParams.l ?? ""} />
     </div>
   );
 }
