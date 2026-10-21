@@ -11,7 +11,9 @@ flowchart LR
   D -- dispara --> E[Flow de registro]
   E -- crea/actualiza --> F[Lead + Contact Point Email]
   E -- si marketing_consent --> G[Email DOI transaccional]
-  G -- clic en enlace --> H[Consent = Opt In<br/>Communication Subscription]
+  G -- clic en enlace --> K[/registro/confirmado?e=email&l=LeadId/]
+  K -- POST --> L[Form Handler de confirmación]
+  L -- Flow: Lead con ese Id y email --> H[Consent = Opt In<br/>Communication Subscription]
   H --> I[Data 360<br/>Communication Subscription Consent DMO]
   A -- login() en dataLayer --> J[Web SDK Data 360<br/>deviceId ↔ email]
 ```
@@ -32,11 +34,14 @@ Clave que viaja en cada salto: el **email** (Contact Point Email) es la clave co
    2. Guardar la evidencia (`consent_source`, `consent_captured_at`, `consent_ip`) en el Lead o en un objeto de log.
    3. Decision `marketing_consent = true`:
       - Enviar el **email de DOI clasificado como transaccional** (sin Communication Subscription), con el botón de confirmación.
-      - Esperar el clic en el enlace de confirmación (con un timeout, p. ej. 7 días).
-      - Al hacer clic: **Update Consent → Opt In** para la Communication Subscription "Newsletter Altamar", contact point = email del formulario. Redirigir el enlace a `https://<sitio>/registro/confirmado`.
-      - Si vence el timeout: no hacer nada. Sin registro de consentimiento, MC Next trata el contacto como Opt Out.
+      - El botón del email enlaza a `https://<sitio>/registro/confirmado?e=<email>&l=<Id del Lead>` (merge fields).
+      - No se usa "Wait Until Event → Email Link Click": los enlaces de un email hecho en HTML no registran clics (0 % en Analytics), así que el Flow se quedaba esperando.
    4. Si `marketing_consent = false`: solo el Lead, sin email comercial.
-5. **Email de bienvenida + 10 %**: enviarlo después del Opt In (ya como comercial, con la Communication Subscription), no en el email de DOI.
+5. **Form Handler "Altamar Confirmación DOI"** (data source Lead, campos `email`, `lead_id` → External ID, `last_name` y `status` porque son obligatorios). `/registro/confirmado` lo llama desde `/api/registro/confirmar` con `MC_CONFIRM_FORM_HANDLER_URL`. Su Flow:
+   1. Get Records Lead donde Id = `lead_id` **y** Email = `email` (sin coincidencia de ambos no hay Opt In, así nadie confirma por otro).
+   2. Decision: si hay Lead → **Create Consent → Opt In**, Email, "Newsletter Altamar", contact point = email del Lead.
+   No crea ni modifica Leads.
+6. **Email de bienvenida + 10 %**: enviarlo después del Opt In (ya como comercial, con la Communication Subscription), no en el email de DOI.
 
 ## Por qué así
 
