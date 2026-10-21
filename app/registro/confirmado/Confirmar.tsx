@@ -21,7 +21,7 @@ export default function Confirmar({ email, leadId }: { email: string; leadId: st
   }, [email, leadId]);
 
   if (state === "sending") {
-    return <p className="mt-4 text-sm text-ink/70">Confirmando tu suscripción…</p>;
+    return <p className="mt-4 text-sm text-ink/70">Confirmando tu cuenta…</p>;
   }
 
   if (state === "error") {
@@ -40,9 +40,9 @@ export default function Confirmar({ email, leadId }: { email: string; leadId: st
 
   return (
     <>
-      <h1 className="mt-2 text-4xl">¡Suscripción confirmada!</h1>
+      <h1 className="mt-2 text-4xl">¡Cuenta confirmada!</h1>
       <p className="mt-4 text-sm text-ink/70">
-        Gracias por confirmar tu email. Recibirás nuestras novedades y tu código del 10 % para la primera compra.
+        Gracias por confirmar tu email. Ya puedes comprar con tu cuenta y, si elegiste recibir novedades, te llegarán a partir de ahora.
       </p>
       <Link href="/productos" className="btn-primary mt-8">
         Ver la colección

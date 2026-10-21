@@ -55,13 +55,11 @@ export default function RegistroPage() {
       <div className="mx-auto max-w-md px-4 py-16">
         <p className="eyebrow">Club Altamar</p>
         <h1 className="mt-2 text-4xl">Cuenta creada</h1>
-        {done.marketingConsent ? (
-          <p className="mt-4 text-sm text-ink/70">
-            Te hemos enviado un email a <strong>{done.email}</strong>. Pulsa el enlace de confirmación para recibir novedades y tu
-            10 % de bienvenida.
-          </p>
-        ) : (
-          <p className="mt-4 text-sm text-ink/70">Ya puedes comprar con tu cuenta. No te enviaremos comunicaciones comerciales.</p>
+        <p className="mt-4 text-sm text-ink/70">
+          Te hemos enviado un email a <strong>{done.email}</strong>. Pulsa el enlace para confirmar tu cuenta.
+        </p>
+        {done.marketingConsent && (
+          <p className="mt-2 text-sm text-ink/70">Al confirmarla quedarás suscrito a nuestras novedades y recibirás tu 10 % de bienvenida.</p>
         )}
         <Link href="/" className="btn-primary mt-8">
           Seguir comprando
@@ -109,7 +107,7 @@ export default function RegistroPage() {
         />
         <label className="flex items-start gap-3 text-sm">
           <input type="checkbox" checked={marketingConsent} onChange={(e) => setMarketingConsent(e.target.checked)} className="mt-1" />
-          <span>Quiero recibir novedades y ofertas de Altamar por email. Te pediremos que lo confirmes desde tu correo.</span>
+          <span>Quiero recibir novedades y ofertas de Altamar por email.</span>
         </label>
         <label className="flex items-start gap-3 text-sm">
           <input type="checkbox" checked={privacyAccepted} onChange={(e) => setPrivacyAccepted(e.target.checked)} className="mt-1" />
