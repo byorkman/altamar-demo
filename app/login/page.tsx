@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
+import Link from "next/link";
 import { login } from "@/lib/auth";
 
 function LoginForm() {
@@ -51,6 +52,9 @@ function LoginForm() {
           Entrar
         </button>
       </form>
+      <p className="mt-6 text-center text-sm text-ink/70">
+        ¿Aún no tienes cuenta? <Link href="/registro" className="underline">Crea una</Link>
+      </p>
       <div className="demo-note mt-8">
         <p className="font-semibold">Demo Data Cloud</p>
         <p className="mt-1">
