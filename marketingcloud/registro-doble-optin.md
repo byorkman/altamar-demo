@@ -34,7 +34,7 @@ Clave que viaja en cada salto: el **email** (Contact Point Email) es la clave co
    2. Guardar la evidencia (`consent_source`, `consent_captured_at`, `consent_ip`) en el Lead o en un objeto de log.
    3. Decision `marketing_consent = true`:
       - Enviar el **email de DOI clasificado como transaccional** (sin Communication Subscription), con el botón de confirmación.
-      - El botón del email enlaza a `https://<sitio>/registro/confirmado?e=<email>&l=<Id del Lead>` (merge fields).
+      - El botón del email enlaza a `https://<sitio>/registro/confirmado?e={{$individual.email}}&l={{$recipient.Id}}`. En este email `{{$recipient.Id}}` llega vacío, así que la página toma el Id del Lead del `individualId` del `sftoken` que MC Next añade al enlace.
       - No se usa "Wait Until Event → Email Link Click": los enlaces de un email hecho en HTML no registran clics (0 % en Analytics), así que el Flow se quedaba esperando.
    4. Si `marketing_consent = false`: solo el Lead, sin email comercial.
 5. **Form Handler "Altamar Confirmación DOI"** (data source Lead, campos `email`, `lead_id` → External ID, `last_name` y `status` porque son obligatorios). `/registro/confirmado` lo llama desde `/api/registro/confirmar` con `MC_CONFIRM_FORM_HANDLER_URL`. Su Flow:
