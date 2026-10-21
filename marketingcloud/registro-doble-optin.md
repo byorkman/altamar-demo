@@ -37,8 +37,9 @@ Clave que viaja en cada salto: el **email** (Contact Point Email) es la clave co
       - No se usa "Wait Until Event → Email Link Click": los enlaces de un email hecho en HTML no registran clics (0 % en Analytics), así que el Flow se quedaba esperando.
 5. **Form Handler "Altamar Confirmación DOI"** (data source Lead, campos `email`, `lead_id` → External ID, `last_name` y `status` porque son obligatorios). `/registro/confirmado` lo llama desde `/api/registro/confirmar` con `MC_CONFIRM_FORM_HANDLER_URL`. Su Flow:
    1. Get Records Lead donde Id = `lead_id` **y** Email = `email` (sin coincidencia de ambos no hay Opt In, así nadie confirma por otro).
-   2. Decision: si hay Lead **y** `Marketing_Consent__c` = true → **Create Consent → Opt In**, Email, "Newsletter Altamar", contact point = email del Lead. Si hay Lead sin consentimiento, la cuenta queda confirmada y no se crea Opt In.
-   No crea ni modifica Leads.
+   2. Si hay Lead → **Update Records**: `Email_Confirmado__c` = true (checkbox en Lead; deja constancia de la cuenta confirmada aunque no haya consentimiento).
+   3. Decision: si hay Lead **y** `Marketing_Consent__c` = true → **Create Consent → Opt In**, Email, "Newsletter Altamar", contact point = email del Lead. Si hay Lead sin consentimiento, la cuenta queda confirmada y no se crea Opt In.
+   No crea Leads; solo marca `Email_Confirmado__c`.
 6. **Email de bienvenida + 10 %**: enviarlo después del Opt In (ya como comercial, con la Communication Subscription), no en el email de DOI.
 
 ## Por qué así
