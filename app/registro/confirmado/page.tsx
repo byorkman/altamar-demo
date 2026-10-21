@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Confirmar from "./Confirmar";
 
-export const metadata: Metadata = { title: "Confirmar suscripción · Altamar", robots: { index: false } };
+export const metadata: Metadata = { title: "Confirmar cuenta · Altamar", robots: { index: false } };
 
 /**
  * Página de destino del enlace del email de doble opt-in.
