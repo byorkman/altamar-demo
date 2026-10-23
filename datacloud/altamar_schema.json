@@ -1,235 +1,1616 @@
 {
   "records": [
     {
-      "developerName": "Altamar_Engagement",
-      "masterLabel": "Altamar Engagement",
+      "developerName": "catalog",
+      "masterLabel": "Catalog",
       "category": "Engagement",
       "externalDataTranFields": [
         {
+          "masterLabel": "attributeCategory",
+          "developerName": "attributeCategory",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "attributeColor",
+          "developerName": "attributeColor",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "attributeName",
+          "developerName": "attributeName",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "attributePrice",
+          "developerName": "attributePrice",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "attributeSubcategory",
+          "developerName": "attributeSubcategory",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Customer Id",
+          "developerName": "customerId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "dateTime",
+          "developerName": "dateTime",
+          "dataType": "DateTime",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "deviceId",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventId",
           "developerName": "eventId",
-          "masterLabel": "Event Id",
           "dataType": "Text",
           "isDataRequired": true,
           "primaryIndexOrder": 1
         },
         {
-          "developerName": "deviceId",
-          "masterLabel": "Device Id",
-          "dataType": "Text",
-          "isDataRequired": true
-        },
-        {
-          "developerName": "dateTime",
-          "masterLabel": "Date Time",
-          "dataType": "DateTime",
-          "isDataRequired": true
-        },
-        {
+          "masterLabel": "eventType",
           "developerName": "eventType",
-          "masterLabel": "Event Type",
           "dataType": "Text",
           "isDataRequired": true
         },
         {
-          "developerName": "category",
-          "masterLabel": "Category",
+          "masterLabel": "id",
+          "developerName": "id",
           "dataType": "Text",
           "isDataRequired": true
         },
         {
-          "developerName": "sessionId",
-          "masterLabel": "Session Id",
-          "dataType": "Text",
-          "isDataRequired": true
-        },
-        {
+          "masterLabel": "interactionName",
           "developerName": "interactionName",
-          "masterLabel": "Interaction Name",
-          "dataType": "Text"
+          "dataType": "Text",
+          "isDataRequired": true
         },
         {
-          "developerName": "pageUrl",
-          "masterLabel": "Page URL",
-          "dataType": "Text"
-        },
-        {
-          "developerName": "pageType",
-          "masterLabel": "Page Type",
-          "dataType": "Text"
-        },
-        {
-          "developerName": "pageCategory",
           "masterLabel": "Page Category",
-          "dataType": "Text"
+          "developerName": "pageCategory",
+          "dataType": "Text",
+          "isDataRequired": false
         },
         {
-          "developerName": "pageTitle",
           "masterLabel": "Page Title",
-          "dataType": "Text"
+          "developerName": "pageTitle",
+          "dataType": "Text",
+          "isDataRequired": false
         },
         {
-          "developerName": "referrer",
-          "masterLabel": "Referrer",
-          "dataType": "Text"
+          "masterLabel": "Page Type",
+          "developerName": "pageType",
+          "dataType": "Text",
+          "isDataRequired": false
         },
         {
-          "developerName": "utmSource",
-          "masterLabel": "UTM Source",
-          "dataType": "Text"
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
         },
         {
-          "developerName": "utmMedium",
-          "masterLabel": "UTM Medium",
-          "dataType": "Text"
+          "masterLabel": "personalizationContentId",
+          "developerName": "personalizationContentId",
+          "dataType": "Text",
+          "isDataRequired": false
         },
         {
-          "developerName": "utmCampaign",
+          "masterLabel": "personalizationId",
+          "developerName": "personalizationId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationServiceProvider",
+          "developerName": "personalizationServiceProvider",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sessionId",
+          "developerName": "sessionId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "sourceChannel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourcePageType",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrl",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrlReferrer",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "type",
+          "developerName": "type",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
           "masterLabel": "UTM Campaign",
-          "dataType": "Text"
+          "developerName": "utmCampaign",
+          "dataType": "Text",
+          "isDataRequired": false
         },
         {
-          "developerName": "customerId",
-          "masterLabel": "Customer Id",
-          "dataType": "Text"
+          "masterLabel": "UTM Medium",
+          "developerName": "utmMedium",
+          "dataType": "Text",
+          "isDataRequired": false
         },
         {
-          "developerName": "sku",
-          "masterLabel": "SKU",
-          "dataType": "Text"
-        },
-        {
-          "developerName": "productName",
-          "masterLabel": "Product Name",
-          "dataType": "Text"
-        },
-        {
-          "developerName": "prodCategory",
-          "masterLabel": "Product Category",
-          "dataType": "Text"
-        },
-        {
-          "developerName": "prodSubcategory",
-          "masterLabel": "Product Subcategory",
-          "dataType": "Text"
-        },
-        {
-          "developerName": "color",
-          "masterLabel": "Color",
-          "dataType": "Text"
-        },
-        {
-          "developerName": "size",
-          "masterLabel": "Size",
-          "dataType": "Text"
-        },
-        {
-          "developerName": "price",
-          "masterLabel": "Price",
-          "dataType": "Number"
-        },
-        {
-          "developerName": "currency",
-          "masterLabel": "Currency",
-          "dataType": "Text"
-        },
-        {
-          "developerName": "quantity",
-          "masterLabel": "Quantity",
-          "dataType": "Number"
-        },
-        {
-          "developerName": "lineTotal",
-          "masterLabel": "Line Total",
-          "dataType": "Number"
-        },
-        {
-          "developerName": "orderId",
-          "masterLabel": "Order Id",
-          "dataType": "Text"
-        },
-        {
-          "developerName": "orderTotal",
-          "masterLabel": "Order Total",
-          "dataType": "Number"
-        },
-        {
-          "developerName": "shippingCost",
-          "masterLabel": "Shipping Cost",
-          "dataType": "Number"
+          "masterLabel": "UTM Source",
+          "developerName": "utmSource",
+          "dataType": "Text",
+          "isDataRequired": false
         }
       ]
     },
     {
-      "developerName": "Altamar_Profile",
-      "masterLabel": "Altamar Profile",
-      "category": "Profile",
+      "developerName": "cart",
+      "masterLabel": "Cart",
+      "category": "Engagement",
       "externalDataTranFields": [
         {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Customer Id",
+          "developerName": "customerId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "dateTime",
+          "developerName": "dateTime",
+          "dataType": "DateTime",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "deviceId",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventId",
           "developerName": "eventId",
-          "masterLabel": "Event Id",
           "dataType": "Text",
           "isDataRequired": true,
           "primaryIndexOrder": 1
         },
         {
-          "developerName": "deviceId",
-          "masterLabel": "Device Id",
+          "masterLabel": "eventType",
+          "developerName": "eventType",
           "dataType": "Text",
           "isDataRequired": true
         },
         {
+          "masterLabel": "interactionName",
+          "developerName": "interactionName",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Page Category",
+          "developerName": "pageCategory",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page Title",
+          "developerName": "pageTitle",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page Type",
+          "developerName": "pageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationContentId",
+          "developerName": "personalizationContentId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationId",
+          "developerName": "personalizationId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationServiceProvider",
+          "developerName": "personalizationServiceProvider",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sessionId",
+          "developerName": "sessionId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "sourceChannel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourcePageType",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrl",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrlReferrer",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "UTM Campaign",
+          "developerName": "utmCampaign",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "UTM Medium",
+          "developerName": "utmMedium",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "UTM Source",
+          "developerName": "utmSource",
+          "dataType": "Text",
+          "isDataRequired": false
+        }
+      ]
+    },
+    {
+      "developerName": "cartItem",
+      "masterLabel": "Cart Item",
+      "category": "Engagement",
+      "externalDataTranFields": [
+        {
+          "masterLabel": "cartEventId",
+          "developerName": "cartEventId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "catalogObjectId",
+          "developerName": "catalogObjectId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "catalogObjectType",
+          "developerName": "catalogObjectType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "currency",
+          "developerName": "currency",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "dateTime",
           "developerName": "dateTime",
-          "masterLabel": "Date Time",
           "dataType": "DateTime",
           "isDataRequired": true
         },
         {
+          "masterLabel": "deviceId",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventId",
+          "developerName": "eventId",
+          "dataType": "Text",
+          "isDataRequired": true,
+          "primaryIndexOrder": 1
+        },
+        {
+          "masterLabel": "eventType",
           "developerName": "eventType",
-          "masterLabel": "Event Type",
           "dataType": "Text",
           "isDataRequired": true
         },
         {
-          "developerName": "category",
-          "masterLabel": "Category",
+          "masterLabel": "Engagement Channel Type",
+          "developerName": "interactionName",
           "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationContentId",
+          "developerName": "personalizationContentId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationId",
+          "developerName": "personalizationId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationServiceProvider",
+          "developerName": "personalizationServiceProvider",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "price",
+          "developerName": "price",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "quantity",
+          "developerName": "quantity",
+          "dataType": "Number",
           "isDataRequired": true
         },
         {
+          "masterLabel": "sessionId",
           "developerName": "sessionId",
-          "masterLabel": "Session Id",
           "dataType": "Text",
           "isDataRequired": true
         },
         {
-          "developerName": "isAnonymous",
-          "masterLabel": "Is Anonymous",
-          "dataType": "Text"
+          "masterLabel": "Engagement Channel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
         },
         {
-          "developerName": "email",
-          "masterLabel": "Email",
-          "dataType": "Email"
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
         },
         {
-          "developerName": "customerId",
+          "masterLabel": "Webpage Type",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page URL",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Referrer URL",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        }
+      ]
+    },
+    {
+      "developerName": "order",
+      "masterLabel": "Order",
+      "category": "Engagement",
+      "externalDataTranFields": [
+        {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
           "masterLabel": "Customer Id",
-          "dataType": "Text"
+          "developerName": "customerId",
+          "dataType": "Text",
+          "isDataRequired": false
         },
         {
+          "masterLabel": "dateTime",
+          "developerName": "dateTime",
+          "dataType": "DateTime",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "deviceId",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventId",
+          "developerName": "eventId",
+          "dataType": "Text",
+          "isDataRequired": true,
+          "primaryIndexOrder": 1
+        },
+        {
+          "masterLabel": "eventType",
+          "developerName": "eventType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "interactionName",
+          "developerName": "interactionName",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "orderCurrency",
+          "developerName": "orderCurrency",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Order Gross Value",
+          "developerName": "orderGrossValue",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "orderId",
+          "developerName": "orderId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "orderTotalValue",
+          "developerName": "orderTotalValue",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page Category",
+          "developerName": "pageCategory",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page Title",
+          "developerName": "pageTitle",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page Type",
+          "developerName": "pageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationContentId",
+          "developerName": "personalizationContentId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationId",
+          "developerName": "personalizationId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationServiceProvider",
+          "developerName": "personalizationServiceProvider",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sessionId",
+          "developerName": "sessionId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Shipping Cost",
+          "developerName": "shippingCost",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceChannel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourcePageType",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrl",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrlReferrer",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "UTM Campaign",
+          "developerName": "utmCampaign",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "UTM Medium",
+          "developerName": "utmMedium",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "UTM Source",
+          "developerName": "utmSource",
+          "dataType": "Text",
+          "isDataRequired": false
+        }
+      ]
+    },
+    {
+      "developerName": "orderItem",
+      "masterLabel": "Order Item",
+      "category": "Engagement",
+      "externalDataTranFields": [
+        {
+          "masterLabel": "catalogObjectId",
+          "developerName": "catalogObjectId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "catalogObjectType",
+          "developerName": "catalogObjectType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "currency",
+          "developerName": "currency",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "dateTime",
+          "developerName": "dateTime",
+          "dataType": "DateTime",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "deviceId",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventId",
+          "developerName": "eventId",
+          "dataType": "Text",
+          "isDataRequired": true,
+          "primaryIndexOrder": 1
+        },
+        {
+          "masterLabel": "eventType",
+          "developerName": "eventType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Engagement Channel Type",
+          "developerName": "interactionName",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "orderEventId",
+          "developerName": "orderEventId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationContentId",
+          "developerName": "personalizationContentId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationId",
+          "developerName": "personalizationId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "price",
+          "developerName": "price",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "quantity",
+          "developerName": "quantity",
+          "dataType": "Number",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "sessionId",
+          "developerName": "sessionId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Engagement Channel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Webpage Type",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page URL",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Referrer URL",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Total Line Amount",
+          "developerName": "totalPrice",
+          "dataType": "Number",
+          "isDataRequired": false
+        }
+      ]
+    },
+    {
+      "developerName": "userEngagement",
+      "masterLabel": "userEngagement",
+      "category": "Engagement",
+      "externalDataTranFields": [
+        {
+          "masterLabel": "attributeInteractionName",
+          "developerName": "attributeInteractionName",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Customer Id",
+          "developerName": "customerId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Engagement Date Time",
+          "developerName": "dateTime",
+          "dataType": "DateTime",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Individual",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventId",
+          "developerName": "eventId",
+          "dataType": "Text",
+          "isDataRequired": true,
+          "primaryIndexOrder": 1
+        },
+        {
+          "masterLabel": "eventType",
+          "developerName": "eventType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Engagement Channel Type",
+          "developerName": "interactionName",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page Category",
+          "developerName": "pageCategory",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page Title",
+          "developerName": "pageTitle",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page Type",
+          "developerName": "pageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationContentId",
+          "developerName": "personalizationContentId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationId",
+          "developerName": "personalizationId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "personalizationServiceProvider",
+          "developerName": "personalizationServiceProvider",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Session",
+          "developerName": "sessionId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Engagement Channel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Webpage Type",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page URL",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Referrer URL",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "UTM Campaign",
+          "developerName": "utmCampaign",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "UTM Medium",
+          "developerName": "utmMedium",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "UTM Source",
+          "developerName": "utmSource",
+          "dataType": "Text",
+          "isDataRequired": false
+        }
+      ]
+    },
+    {
+      "developerName": "consentLog",
+      "masterLabel": "Consent",
+      "category": "Engagement",
+      "externalDataTranFields": [
+        {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "dateTime",
+          "developerName": "dateTime",
+          "dataType": "DateTime",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "deviceId",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventId",
+          "developerName": "eventId",
+          "dataType": "Text",
+          "isDataRequired": true,
+          "primaryIndexOrder": 1
+        },
+        {
+          "masterLabel": "eventType",
+          "developerName": "eventType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Engagement Channel Type",
+          "developerName": "interactionName",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "provider",
+          "developerName": "provider",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "purpose",
+          "developerName": "purpose",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sessionId",
+          "developerName": "sessionId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "Engagement Channel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Webpage Type",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Page URL",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Referrer URL",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "status",
+          "developerName": "status",
+          "dataType": "Text",
+          "isDataRequired": true
+        }
+      ]
+    },
+    {
+      "developerName": "identity",
+      "masterLabel": "Identity",
+      "category": "Profile",
+      "externalDataTranFields": [
+        {
+          "masterLabel": "addressLine1",
+          "developerName": "addressLine1",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "addressLine2",
+          "developerName": "addressLine2",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "addressLine3",
+          "developerName": "addressLine3",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "addressLine4",
+          "developerName": "addressLine4",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "city",
+          "developerName": "city",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "country",
+          "developerName": "country",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "Customer Id",
+          "developerName": "customerId",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "dateTime",
+          "developerName": "dateTime",
+          "dataType": "DateTime",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "deviceId",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true,
+          "primaryIndexOrder": 1
+        },
+        {
+          "masterLabel": "email",
+          "developerName": "email",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "eventId",
+          "developerName": "eventId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventType",
+          "developerName": "eventType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "firstName",
           "developerName": "firstName",
-          "masterLabel": "First Name",
-          "dataType": "Text"
+          "dataType": "Text",
+          "isDataRequired": false
         },
         {
-          "developerName": "loyaltyTier",
+          "masterLabel": "isAnonymous",
+          "developerName": "isAnonymous",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "lastName",
+          "developerName": "lastName",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
           "masterLabel": "Loyalty Tier",
-          "dataType": "Text"
+          "developerName": "loyaltyTier",
+          "dataType": "Text",
+          "isDataRequired": false
         },
         {
-          "developerName": "newsletterOptIn",
-          "masterLabel": "Newsletter Opt In",
-          "dataType": "Text"
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "phoneNumber",
+          "developerName": "phoneNumber",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "postalCode",
+          "developerName": "postalCode",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sessionId",
+          "developerName": "sessionId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "sourceChannel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourcePageType",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrl",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrlReferrer",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "stateProvince",
+          "developerName": "stateProvince",
+          "dataType": "Text",
+          "isDataRequired": false
+        }
+      ]
+    },
+    {
+      "developerName": "contactPointEmail",
+      "masterLabel": "Contact Point Email",
+      "category": "Profile",
+      "externalDataTranFields": [
+        {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "dateTime",
+          "developerName": "dateTime",
+          "dataType": "DateTime",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "deviceId",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true,
+          "primaryIndexOrder": 1
+        },
+        {
+          "masterLabel": "email",
+          "developerName": "email",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventId",
+          "developerName": "eventId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventType",
+          "developerName": "eventType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sessionId",
+          "developerName": "sessionId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "sourceChannel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourcePageType",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrl",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrlReferrer",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        }
+      ]
+    },
+    {
+      "developerName": "contactPointPhone",
+      "masterLabel": "Contact Point Phone",
+      "category": "Profile",
+      "externalDataTranFields": [
+        {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "dateTime",
+          "developerName": "dateTime",
+          "dataType": "DateTime",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "deviceId",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true,
+          "primaryIndexOrder": 1
+        },
+        {
+          "masterLabel": "eventId",
+          "developerName": "eventId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventType",
+          "developerName": "eventType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "phoneNumber",
+          "developerName": "phoneNumber",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "sessionId",
+          "developerName": "sessionId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "sourceChannel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourcePageType",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrl",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrlReferrer",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        }
+      ]
+    },
+    {
+      "developerName": "contactPointAddress",
+      "masterLabel": "Contact Point Address",
+      "category": "Profile",
+      "externalDataTranFields": [
+        {
+          "masterLabel": "addressLine1",
+          "developerName": "addressLine1",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "addressLine2",
+          "developerName": "addressLine2",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "addressLine3",
+          "developerName": "addressLine3",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "addressLine4",
+          "developerName": "addressLine4",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "city",
+          "developerName": "city",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "country",
+          "developerName": "country",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "dateTime",
+          "developerName": "dateTime",
+          "dataType": "DateTime",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "deviceId",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true,
+          "primaryIndexOrder": 1
+        },
+        {
+          "masterLabel": "eventId",
+          "developerName": "eventId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventType",
+          "developerName": "eventType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "postalCode",
+          "developerName": "postalCode",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "sessionId",
+          "developerName": "sessionId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "sourceChannel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourcePageType",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrl",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrlReferrer",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "stateProvince",
+          "developerName": "stateProvince",
+          "dataType": "Text",
+          "isDataRequired": true
+        }
+      ]
+    },
+    {
+      "developerName": "partyIdentification",
+      "masterLabel": "Party Identification",
+      "category": "Profile",
+      "externalDataTranFields": [
+        {
+          "masterLabel": "category",
+          "developerName": "category",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "dateTime",
+          "developerName": "dateTime",
+          "dataType": "DateTime",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "deviceId",
+          "developerName": "deviceId",
+          "dataType": "Text",
+          "isDataRequired": true,
+          "primaryIndexOrder": 1
+        },
+        {
+          "masterLabel": "eventId",
+          "developerName": "eventId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "eventType",
+          "developerName": "eventType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "IDName",
+          "developerName": "IDName",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "IDType",
+          "developerName": "IDType",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "pageView",
+          "developerName": "pageView",
+          "dataType": "Number",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sessionId",
+          "developerName": "sessionId",
+          "dataType": "Text",
+          "isDataRequired": true
+        },
+        {
+          "masterLabel": "sourceChannel",
+          "developerName": "sourceChannel",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceLocale",
+          "developerName": "sourceLocale",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourcePageType",
+          "developerName": "sourcePageType",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrl",
+          "developerName": "sourceUrl",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "sourceUrlReferrer",
+          "developerName": "sourceUrlReferrer",
+          "dataType": "Text",
+          "isDataRequired": false
+        },
+        {
+          "masterLabel": "userId",
+          "developerName": "userId",
+          "dataType": "Text",
+          "isDataRequired": true
         }
       ]
     }

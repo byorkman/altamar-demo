@@ -8,3 +8,4 @@ dist
 *.log
 tsconfig.tsbuildinfo
 .vercel
+datacloud/historico/salida/
