@@ -8,7 +8,8 @@ import { FREE_SHIPPING_FROM, SHIPPING_COST, formatEUR } from "@/data/products";
 import { toTracked, track } from "@/lib/tracking";
 
 function newOrderId() {
-  return "ALT-" + Math.random().toString(36).slice(2, 8).toUpperCase();
+  // ORD- para no confundirlo con el customerId (ALT-…) en Data 360
+  return "ORD-" + Math.random().toString(36).slice(2, 8).toUpperCase();
 }
 
 export default function CheckoutPage() {
@@ -37,8 +38,9 @@ export default function CheckoutPage() {
       event: "order_completed",
       order: {
         orderId: id,
-        total,
+        subtotal: Math.round(subtotal * 100) / 100,
         shipping,
+        total,
         currency: "EUR",
         items: lines.map((l) => ({ ...toTracked(l), quantity: l.quantity, size: l.size }))
       }
@@ -58,8 +60,8 @@ export default function CheckoutPage() {
         <div className="demo-note mt-8 text-left">
           <p className="font-semibold">Demo Data Cloud</p>
           <p className="mt-1">
-            Se ha enviado <code>Order Completed</code> ({placed.count} {placed.count === 1 ? "unidad" : "unidades"} · {formatEUR(placed.total)}) y un evento{" "}
-            <code>Order Line</code> por cada producto.
+            Se ha enviado <code>Purchase</code> ({placed.count} {placed.count === 1 ? "unidad" : "unidades"} · {formatEUR(placed.total)}): un evento{" "}
+            <code>order</code> con el importe sin envío y un <code>orderItem</code> por cada producto.
           </p>
         </div>
         <Link href="/productos" className="btn-primary mt-10">

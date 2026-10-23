@@ -33,7 +33,7 @@ Sin `NEXT_PUBLIC_DATACLOUD_SITEMAP_URL` la web funciona igual y no envía evento
 2. Vuelve a la home: aparece **"Seleccionado para ti · Porque te interesa Mujer"**.
 3. Añade un producto a la cesta y ve a "Tramitar pedido": la web pide iniciar sesión.
 4. **Login** con nombre y email: el banner principal se personaliza y Data Cloud une la navegación anónima con el perfil.
-5. **Confirma el pedido**: llegan `Order Completed` y una `Order Line` por producto.
+5. **Confirma el pedido**: llega `Purchase` (un `order` con el importe sin envío y un `orderItem` por producto).
 6. En Data Cloud, muestra el perfil unificado en Profile Explorer con su navegación, su origen de campaña y su compra, y crea un segmento, por ejemplo "vio Mujer, añadió a la cesta y no compró en 7 días".
 
 ## Estructura

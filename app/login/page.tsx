@@ -58,7 +58,7 @@ function LoginForm() {
       <div className="demo-note mt-8">
         <p className="font-semibold">Demo Data Cloud</p>
         <p className="mt-1">
-          Al entrar se envía <code>Identity Login</code> con email y customerId. Data Cloud une la navegación anónima de este
+          Al entrar se envían <code>contactPointEmail</code>, <code>identity</code> y <code>partyIdentification</code> con email y customerId. Data Cloud une la navegación anónima de este
           dispositivo con el perfil del cliente.
         </p>
       </div>

@@ -20,7 +20,8 @@ export type DataLayerEvent =
   | { event: "newsletter_signup"; email: string }
   | {
       event: "order_completed";
-      order: { orderId: string; total: number; shipping: number; currency: string; items: (TrackedProduct & { quantity: number; size?: string })[] };
+      /** subtotal = productos sin envío (es lo que cuenta para el RFM); total = subtotal + shipping */
+      order: { orderId: string; subtotal: number; shipping: number; total: number; currency: string; items: (TrackedProduct & { quantity: number; size?: string })[] };
     };
 
 export type TrackedProduct = {

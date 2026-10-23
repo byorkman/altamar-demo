@@ -1,45 +1,74 @@
-# Altamar – Data Cloud
+# Altamar – Data 360
 
-Configuración del conector web de Data Cloud para la demo Altamar.
+Configuración del conector web de Data 360 y del RFM para la demo Altamar.
 
 ## Archivos
 
-- `altamar_schema.json`: schema del conector, con `Altamar_Engagement` (Engagement) y `Altamar_Profile` (Profile).
+- `altamar_schema.json`: esquema del conector (v2). Son los 12 eventTypes estándar del Website Connector (`catalog`, `cart`, `cartItem`, `order`, `orderItem`, `userEngagement`, `consentLog`, `identity`, `contactPointEmail`, `contactPointPhone`, `contactPointAddress`, `partyIdentification`) más los campos propios de Altamar.
 - `altamar_sitemap.js`: sitemap que se pega en el editor del conector.
+- `historico/generar.mjs`: genera el histórico sintético de 3.000 clientes para el RFM (ver más abajo).
+- `rfm/altamar_rfm.sql`: SQL del Calculated Insight `Altamar_RFM`.
+
+La v1 (eventTypes planos `Altamar_Engagement` / `Altamar_Profile`) queda en el historial de git.
 
 ## Cómo funciona
 
-La web no llama directamente al SDK de Salesforce. Publica eventos de negocio en `window.altamarDataLayer` (`lib/tracking.ts`) y el sitemap los traduce a eventos de Data Cloud. Si el SDK carga tarde, los eventos esperan en la cola y no se pierde ninguno.
+La web no llama directamente al SDK de Salesforce. Publica eventos de negocio en `window.altamarDataLayer` (`lib/tracking.ts`) y el sitemap los traduce a eventos de Data 360. Si el SDK carga tarde, los eventos esperan en la cola y no se pierde ninguno.
 
 ## Eventos
 
-| Evento | Schema | Cuándo | Campos principales |
+| Data layer | Interacción del SDK | eventTypes | Campos clave |
 |---|---|---|---|
-| View Page | Engagement | Cada página que no sea ficha de producto | pageType, pageCategory, pageTitle, referrer, utm* |
-| View Product | Engagement | Abrir una ficha | sku, productName, prodCategory, prodSubcategory, color, price |
-| Add to Cart | Engagement | Añadir a la cesta o pulsar "+" | + size, quantity, lineTotal |
-| Remove from Cart | Engagement | Pulsar "−" o "Eliminar" | + size, quantity, lineTotal |
-| Order Completed | Engagement | Confirmar pedido | orderId, orderTotal, shippingCost, quantity |
-| Order Line | Engagement | Una por producto del pedido | orderId, sku, size, quantity, lineTotal |
-| Newsletter Signup | Engagement + Profile | Suscribirse en el pie de página | email, newsletterOptIn = 1 |
-| Identity Login | Profile | Iniciar sesión | email, customerId, firstName, loyaltyTier |
+| `page_view` | View Page | userEngagement | pageType, pageCategory, pageTitle |
+| `product_view` | ViewCatalogObject | catalog | id = SKU, attributeName, attributePrice, attributeCategory, attributeSubcategory, attributeColor |
+| `add_to_cart` / `remove_from_cart` | AddToCart / RemoveFromCart | cart + cartItem | catalogObjectId = SKU, price, quantity |
+| `order_completed` | Purchase | order + orderItem | orderId `ORD-…`, orderTotalValue **sin envío**, shippingCost, orderGrossValue (con envío) |
+| `login` | Login | contactPointEmail + identity + partyIdentification | email, firstName, userId = customerId `ALT-…`, IDName `Altamar Customer Id`, IDType `Customer Id` |
+| `newsletter_signup` | Newsletter Signup | contactPointEmail + userEngagement | email |
 
-`pageType` puede ser: `home`, `category`, `product`, `cart`, `checkout`, `login` o `content`.
+Todos los eventos de engagement llevan además `customerId` (si hay sesión iniciada) y `utmSource`, `utmMedium`, `utmCampaign`, que se calculan una vez por sesión. Para probar campañas abre la web con `?utm_source=instagram&utm_medium=paid&utm_campaign=verano26`.
 
-Todos los eventos de Engagement llevan `customerId` cuando el visitante ha iniciado sesión, y el origen de la visita (`referrer`, `utmSource`, `utmMedium`, `utmCampaign`), que se calcula una vez por sesión. Para probar campañas abre la web con `?utm_source=instagram&utm_medium=paid&utm_campaign=verano26`.
+## Puesta en marcha en Data 360
 
-## Puesta en marcha en Data Cloud
-
-1. Setup → Websites & Mobile Apps → New → Website, con el nombre "Altamar".
-2. Sube `altamar_schema.json`. Revísalo antes: una vez subido solo se pueden añadir campos.
+1. Setup → Websites & Mobile Apps → New → Website, con el nombre "Altamar Web v2".
+2. Sube `altamar_schema.json`. Una vez subido solo se pueden añadir campos.
 3. Pega `altamar_sitemap.js` en el editor de sitemap y guarda.
-4. Copia la URL del script de la *Integration Guide* en la variable `NEXT_PUBLIC_DATACLOUD_SITEMAP_URL` de Vercel y vuelve a desplegar.
-5. Crea los data streams (Engagement y Profile) y mapéalos a los DMOs:
-   - Profile → Individual (`deviceId` como Individual Id) + Contact Point Email.
-   - Engagement → los DMOs de engagement (navegación, carrito y pedidos).
-6. Configura Identity Resolution para unir el perfil anónimo (`deviceId`) con el conocido (`email` / `customerId`).
+4. Copia la URL del script de la *Integration Guide* en `NEXT_PUBLIC_DATACLOUD_SITEMAP_URL` (Vercel) y vuelve a desplegar.
+5. Crea los data streams (Engagement y Profile). En cada mapeo a un DMO pon un filtro por `eventType`: mapear el campo no filtra los registros.
+
+| eventType | DMO | Mapeo |
+|---|---|---|
+| identity | Individual | deviceId → Individual Id, firstName → First Name, lastName → Last Name |
+| contactPointEmail | Contact Point Email | deviceId → Id y Party, email → Email Address |
+| partyIdentification | Party Identification | deviceId → Id y Party, userId → Identification Number, IDName → Identification Name, IDType → Party Identification Type |
+| order | Product Order Engagement | eventId → Id, orderId → Sales Order, dateTime → Engagement DateTime, orderTotalValue → Net Order Amount, orderCurrency → Currency, deviceId → Individual |
+| orderItem | Sales Order Product (opcional) | orderEventId → pedido, catalogObjectId → Product, quantity, totalPrice |
+
+6. Identity Resolution con dos match rules: email exacto normalizado (Contact Point Email) y Party Identification exacta (Identification Number + Identification Name).
+
+## Histórico sintético para el RFM
+
+```bash
+node datacloud/historico/generar.mjs --fecha-ref 2026-11-05
+```
+
+Crea en `datacloud/historico/salida/` (no se sube a git):
+
+| Fichero | Se carga en | Columnas |
+|---|---|---|
+| `clientes.csv` | Individual, Contact Point Email y Party Identification | customer_id (Id y Party), first_name, last_name, email, id_name, id_type |
+| `pedidos.csv` | Product Order Engagement | event_id, order_id, customer_id, order_datetime, order_amount (sin envío), currency |
+| `lineas_pedido.csv` | Sales Order Product (opcional) | line_id, event_id, order_id, customer_id, sku, category, quantity, line_amount |
+| `productos.csv` | Product | sku, name, category, subcategory, price, currency |
+| `esperado_rfm.csv` | Nada: sirve para comprobar el CI | R, F, M y segmento esperados de cada cliente |
+
+- Reparto: 241 Champions, 660 Leales, 360 Nuevos, 540 En riesgo y 1.199 Dormidos. El script recalcula cada cliente con las mismas reglas que el CI.
+- Las fechas son relativas a `--fecha-ref` (hoy por defecto) y ninguna recencia queda a menos de 3 días de un umbral. Aun así, regenera y vuelve a cargar la víspera de la demo.
+- El `customer_id` se calcula con el mismo hash que `lib/auth.ts`. **Lucía** (`lucia.martin@example.com`, Champions) está en el histórico: si inicia sesión en la web con ese email, su perfil web se unifica con su histórico.
+- **Carmen** no está en el histórico: su primer pedido (60-120 €) se hace en la web antes de la demo, iniciando sesión con su email. Así queda como Nuevos (R5 F1 M2) y de paso se prueba la cadena completa.
+- Los SKU son los mismos que envía la web (`ALT-W-1001`…), no el id de la URL.
 
 ## Notas
 
-- No uses nombres reservados del SDK como nombre de interacción (`Purchase`, `Add To Cart`, `View Catalog Object`…): el SDK descarta el evento sin dar error.
-- El consentimiento está fijado en OptIn porque es una demo. En producción debe venir del banner de cookies (RGPD).
+- El consentimiento de medición (purpose `Tracking`) está fijado en OptIn porque es una demo. En producción debe venir del banner de cookies (RGPD).
+- Los campos extra de Altamar en `catalog`, `cart` y `order` viajan como campos de la interacción. Si alguno no llega, el evento estándar se registra igual.
