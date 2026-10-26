@@ -1,24 +1,31 @@
 /**
- * Sitemap Altamar Demo - Data Cloud (Salesforce Interactions SDK)
- * Se pega en el editor de sitemap del conector web de Data Cloud.
+ * Sitemap Altamar Demo v2 - Data 360 (Salesforce Interactions SDK)
+ * Se pega en el editor de sitemap del conector web "Altamar Web v2".
  *
  * La web publica eventos de negocio en window.altamarDataLayer (ver lib/tracking.ts).
  * Este sitemap lee esa cola, incluidos los eventos que llegaron antes de que cargara
- * el SDK, y los envía a Data Cloud con los nombres de campo del schema
- * (datacloud/altamar_schema.json).
+ * el SDK, y los envía con los eventTypes estándar del conector
+ * (datacloud/altamar_schema.json, el esquema de 12 eventos + campos Altamar):
  *
- * Reglas:
- *  - interaction.eventType      = "Altamar_Engagement"
- *  - user.attributes.eventType  = "Altamar_Profile"
- *  - eventId, deviceId, sessionId, dateTime y category los rellena el SDK.
- *  - No usar nombres reservados del SDK como interaction.name ("Purchase",
- *    "Add To Cart", "View Catalog Object"...): el SDK los descarta si no llevan
- *    su estructura propia.
+ *  - page_view ........ userEngagement  (View Page)
+ *  - product_view ..... catalog         (ViewCatalogObject)
+ *  - add_to_cart ...... cart + cartItem (AddToCart)
+ *  - remove_from_cart . cart + cartItem (RemoveFromCart)
+ *  - order_completed .. order + orderItem (Purchase). totalValue = productos SIN envío,
+ *                       que es lo que mide el Monetario del RFM.
+ *  - login ............ contactPointEmail + identity (Login) + partyIdentification
+ *                       con userId = customerId (ALT-XXXXXXXX), el mismo IDName e
+ *                       IDType que el histórico (datacloud/historico).
+ *  - newsletter_signup  contactPointEmail + userEngagement (Newsletter Signup)
+ *
+ * eventId, deviceId, sessionId, dateTime y category los rellena el SDK.
  */
 
 (function () {
-    const ENGAGEMENT = "Altamar_Engagement";
-    const PROFILE = "Altamar_Profile";
+    const SI = window.SalesforceInteractions;
+    const CURRENCY = "EUR";
+    const ID_NAME = "Altamar Customer Id";
+    const ID_TYPE = "Customer Id";
 
     const clean = (obj) =>
         Object.fromEntries(Object.entries(obj).filter(([, v]) => v !== undefined && v !== null && v !== ""));
@@ -40,12 +47,7 @@
             const saved = sessionStorage.getItem(KEY);
             if (saved) return JSON.parse(saved);
             const p = new URLSearchParams(window.location.search);
-            let referrer = "";
-            try {
-                if (document.referrer && new URL(document.referrer).host !== window.location.host) referrer = document.referrer;
-            } catch (e) {}
             const src = clean({
-                referrer,
                 utmSource: p.get("utm_source"),
                 utmMedium: p.get("utm_medium"),
                 utmCampaign: p.get("utm_campaign")
@@ -59,103 +61,121 @@
 
     let page = {}; // contexto de la última página vista
 
-    function engagement(name, fields) {
+    // Campos Altamar que viajan en todos los eventos de engagement
+    function context() {
         const user = currentUser();
-        return SalesforceInteractions.sendEvent({
-            interaction: clean({
-                name,
-                eventType: ENGAGEMENT,
-                pageUrl: window.location.href,
-                ...page,
-                ...trafficSource(),
-                customerId: user && user.customerId,
-                ...fields
-            })
-        });
+        return clean({ ...page, ...trafficSource(), customerId: user && user.customerId });
     }
 
-    function profile(name, attributes) {
-        return SalesforceInteractions.sendEvent({
-            interaction: { name },
-            user: { attributes: clean({ eventType: PROFILE, isAnonymous: "0", ...attributes }) }
-        });
+    function send(event) {
+        try {
+            return SI.sendEvent(event);
+        } catch (err) {
+            console.warn("[altamar] sendEvent", err);
+        }
     }
 
-    const productFields = (p) =>
-        clean({
-            sku: p.sku,
-            productName: p.name,
-            prodCategory: p.category,
-            prodSubcategory: p.subcategory,
-            color: p.color,
-            price: p.price,
-            currency: p.currency
-        });
+    function engagement(name, fields) {
+        return send({ interaction: clean({ name, eventType: "userEngagement", ...context(), ...fields }) });
+    }
+
+    const lineItem = (item, quantity) => ({
+        catalogObjectType: "Product",
+        catalogObjectId: item.sku,
+        price: item.price,
+        quantity,
+        currency: item.currency || CURRENCY
+    });
 
     const handlers = {
         page_view(e) {
             page = clean({ pageType: e.pageType, pageCategory: e.pageCategory, pageTitle: e.pageTitle });
-            // En las fichas de producto se envía View Product (con este mismo contexto de página)
+            // En las fichas de producto se envía ViewCatalogObject (con este mismo contexto de página)
             if (e.pageType !== "product") engagement("View Page", {});
         },
 
         product_view(e) {
+            const p = e.product;
             // product_view puede llegar antes que el page_view de la ficha: fijamos aquí el contexto
-            page = clean({ pageType: "product", pageCategory: e.product.category, pageTitle: document.title });
-            engagement("View Product", productFields(e.product));
+            page = clean({ pageType: "product", pageCategory: p.category, pageTitle: document.title });
+            send({
+                interaction: {
+                    name: SI.CatalogObjectInteractionName.ViewCatalogObject,
+                    ...context(),
+                    catalogObject: {
+                        type: "Product",
+                        id: p.sku,
+                        attributes: clean({
+                            name: p.name,
+                            price: p.price,
+                            category: p.category,
+                            subcategory: p.subcategory,
+                            color: p.color
+                        })
+                    }
+                }
+            });
         },
 
         add_to_cart(e) {
-            engagement("Add to Cart", {
-                ...productFields(e.product),
-                size: e.size,
-                quantity: e.quantity,
-                lineTotal: round2(e.product.price * e.quantity)
+            send({
+                interaction: { name: SI.CartInteractionName.AddToCart, ...context(), lineItem: lineItem(e.product, e.quantity) }
             });
         },
 
         remove_from_cart(e) {
-            engagement("Remove from Cart", {
-                ...productFields(e.product),
-                size: e.size,
-                quantity: e.quantity,
-                lineTotal: round2(e.product.price * e.quantity)
+            send({
+                interaction: { name: SI.CartInteractionName.RemoveFromCart, ...context(), lineItem: lineItem(e.product, e.quantity) }
             });
         },
 
         login(e) {
-            profile("Identity Login", {
-                email: e.user.email,
-                customerId: e.user.customerId,
-                firstName: e.user.firstName,
-                loyaltyTier: e.user.loyaltyTier
+            const u = e.user;
+            // 1) Punto de contacto: match rule por email
+            send({ user: { attributes: { eventType: "contactPointEmail", email: u.email } } });
+            // 2) Identidad del visitante, asociada a la interacción de login
+            send({
+                interaction: { name: "Login", eventType: "userEngagement", ...context() },
+                user: {
+                    attributes: clean({
+                        eventType: "identity",
+                        isAnonymous: "0",
+                        email: u.email,
+                        firstName: u.firstName,
+                        lastName: u.lastName,
+                        customerId: u.customerId,
+                        loyaltyTier: u.loyaltyTier
+                    })
+                }
+            });
+            // 3) Identificador de negocio: match rule por customerId, igual que el histórico
+            send({
+                user: { attributes: { eventType: "partyIdentification", userId: u.customerId, IDName: ID_NAME, IDType: ID_TYPE } }
             });
         },
 
         newsletter_signup(e) {
-            profile("Newsletter Signup", { email: e.email, newsletterOptIn: "1" });
+            send({ user: { attributes: { eventType: "contactPointEmail", email: e.email } } });
             engagement("Newsletter Signup", {});
         },
 
         order_completed(e) {
             const o = e.order;
-            const units = o.items.reduce((sum, i) => sum + i.quantity, 0);
-            engagement("Order Completed", {
-                orderId: o.orderId,
-                orderTotal: o.total,
-                shippingCost: o.shipping,
-                quantity: units,
-                currency: o.currency
+            const net = round2(o.subtotal !== undefined ? o.subtotal : o.total - o.shipping);
+            send({
+                interaction: {
+                    name: SI.OrderInteractionName.Purchase,
+                    ...context(),
+                    shippingCost: o.shipping,
+                    orderGrossValue: o.total,
+                    order: {
+                        id: o.orderId,
+                        currency: o.currency || CURRENCY,
+                        totalValue: net,
+                        lineItems: o.items.map((item) => lineItem(item, item.quantity))
+                    }
+                }
             });
-            o.items.forEach((item) =>
-                engagement("Order Line", {
-                    ...productFields(item),
-                    orderId: o.orderId,
-                    size: item.size,
-                    quantity: item.quantity,
-                    lineTotal: round2(item.price * item.quantity)
-                })
-            );
         }
     };
 
@@ -168,15 +188,13 @@
         }
     }
 
-    SalesforceInteractions.init({
-        consents: [{
-            provider: "Altamar",
-            purpose: "Personalization",
-            status: SalesforceInteractions.ConsentStatus.OptIn // Demo. En producción: leer del banner de cookies
-        }]
-    }).then(() => {
+    // Demo: consentimiento de medición aceptado al cargar. En producción: leer del banner de cookies
+    const consents = () => [{ provider: "Altamar", purpose: SI.ConsentPurpose.Tracking, status: SI.ConsentStatus.OptIn }];
+
+    SI.init({ consents: consents() }).then(() => {
+        SI.updateConsents(consents());
         // Los eventos se envían desde el data layer, no por tipos de página
-        SalesforceInteractions.initSitemap({ global: {}, pageTypes: [] });
+        SI.initSitemap({ global: {}, pageTypes: [] });
 
         const queue = (window.altamarDataLayer = window.altamarDataLayer || []);
         queue.forEach(handle); // eventos ocurridos antes de cargar el SDK
