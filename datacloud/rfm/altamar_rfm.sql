@@ -35,6 +35,7 @@ FROM (
     JOIN UnifiedIndividual__dlm ui
       ON ul.UnifiedRecordId__c = ui.ssot__Id__c
     WHERE poe.ssot__EngagementDateTm__c >= DATE_SUB(CURRENT_DATE(), 730)
+      AND poe.ssot__SalesOrderId__c IS NOT NULL -- solo eventos de pedido (el stream web trae todos los eventos)
     GROUP BY ui.ssot__Id__c
   ) a
 ) s
